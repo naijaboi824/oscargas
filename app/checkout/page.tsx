@@ -83,13 +83,13 @@ export default function CheckoutPage() {
     e.preventDefault();
 
     if (!name.trim() || !email.trim() || !phone.trim() || !address.trim() || !city.trim() || !zipCode.trim()) {
-      setSubmitMessage("Please fill in all fields");
+      setSubmitMessage("⚠️ Please fill in all fields");
       setTimeout(() => setSubmitMessage(""), 4000);
       return;
     }
 
     if (cartItems.length === 0) {
-      setSubmitMessage("Your cart is empty. Please add items to your cart");
+      setSubmitMessage("⚠️ Your cart is empty. Please add items to your cart");
       setTimeout(() => setSubmitMessage(""), 4000);
       return;
     }
@@ -97,9 +97,8 @@ export default function CheckoutPage() {
     setIsSubmitting(true);
     setSubmitMessage("");
 
-    try {
-      // Format order details for WhatsApp
-      const orderDetails = `
+    // Format order details for WhatsApp
+    const orderDetails = `
 *OSCAR GAS ORDER*
 
 *Customer Details:*
@@ -120,74 +119,45 @@ Delivery Fee: R ${deliveryFee.toFixed(2)}
 *Total: R ${grandTotal.toFixed(2)}*
 
 Order placed on: ${new Date().toLocaleString()}
-      `.trim();
+    `.trim();
 
-      // Send to backend for logging/email
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          address,
-          city,
-          zipCode,
-          cartItems,
-          subtotal: cartTotal,
-          deliveryFee,
-          grandTotal,
-        }),
-      });
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/27813870497?text=${encodeURIComponent(orderDetails)}`;
 
-      // Open WhatsApp regardless of API response
-      const whatsappUrl = `https://wa.me/27813870497?text=${encodeURIComponent(orderDetails)}`;
+    // Open WhatsApp immediately (don't wait for API)
+    try {
       window.open(whatsappUrl, "_blank");
-
-      // Show success message
-      setSubmitMessage("✓ Order submitted! Opening WhatsApp...");
-      
-      // Clear cart and redirect
-      setTimeout(() => {
-        localStorage.removeItem(STORAGE_KEY);
-        router.push("/shop");
-      }, 2000);
     } catch (error) {
-      console.error("Order error:", error);
-      setSubmitMessage("Order submitted! Opening WhatsApp...");
-      
-      // Still open WhatsApp even if there's an error
-      const orderDetails = `
-*OSCAR GAS ORDER*
-
-*Customer Details:*
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-
-*Delivery Address:*
-${address}
-${city}, ${zipCode}
-
-*Order Items:*
-${cartItems.map((item: any) => `• ${item.size} (${item.label}) x${item.qty} = R ${item.subtotal.toLocaleString("en-ZA")}`).join("\n")}
-
-*Order Summary:*
-Subtotal: R ${cartTotal.toLocaleString("en-ZA")}
-Delivery Fee: R ${deliveryFee.toFixed(2)}
-*Total: R ${grandTotal.toFixed(2)}*
-      `.trim();
-      
-      const whatsappUrl = `https://wa.me/27813870497?text=${encodeURIComponent(orderDetails)}`;
-      window.open(whatsappUrl, "_blank");
-      
-      setTimeout(() => {
-        localStorage.removeItem(STORAGE_KEY);
-        router.push("/shop");
-      }, 2000);
-    } finally {
-      setIsSubmitting(false);
+      console.error("Failed to open WhatsApp:", error);
     }
+
+    // Send order to backend in background (non-blocking)
+    fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        address,
+        city,
+        zipCode,
+        cartItems,
+        subtotal: cartTotal,
+        deliveryFee,
+        grandTotal,
+      }),
+    }).catch((error) => console.error("Order logging error:", error));
+
+    // Show success message
+    setSubmitMessage("✓ Order sent to WhatsApp! Redirecting...");
+
+    // Clear cart and redirect after delay
+    setTimeout(() => {
+      localStorage.removeItem(STORAGE_KEY);
+      setIsSubmitting(false);
+      router.push("/shop");
+    }, 2500);
   };
 
   // Redirect if cart is empty
