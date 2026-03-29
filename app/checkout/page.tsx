@@ -206,7 +206,7 @@ Order placed on: ${new Date().toLocaleString()}
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-4 py-2 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)]/50 focus:outline-none transition-colors"
+                        className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
                         placeholder="Enter your full name"
                         required
                       />
@@ -219,7 +219,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-4 py-2 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)]/50 focus:outline-none transition-colors"
+                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
                           placeholder="your@email.com"
                           required
                         />
@@ -230,7 +230,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-4 py-2 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)]/50 focus:outline-none transition-colors"
+                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
                           placeholder="+27 81 234 5678"
                           required
                         />
@@ -249,7 +249,7 @@ Order placed on: ${new Date().toLocaleString()}
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        className="w-full px-4 py-2 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)]/50 focus:outline-none transition-colors"
+                        className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
                         placeholder="123 Main Street, Apartment 4B"
                         required
                       />
@@ -262,7 +262,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="text"
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
-                          className="w-full px-4 py-2 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)]/50 focus:outline-none transition-colors"
+                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
                           placeholder="Cape Town"
                           required
                         />
@@ -273,7 +273,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="text"
                           value={zipCode}
                           onChange={(e) => setZipCode(e.target.value)}
-                          className="w-full px-4 py-2 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)]/50 focus:outline-none transition-colors"
+                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
                           placeholder="8000"
                           required
                         />

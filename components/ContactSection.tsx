@@ -147,12 +147,13 @@ export default function ContactSection() {
                     Your Name
                   </label>
                   <input
+                    type="text"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
                     required
                     placeholder="e.g. John Smith"
-                    className="w-full bg-[var(--ash)] border border-white/8 focus:border-[var(--flame)]/50 focus:outline-none text-sm text-white placeholder-[var(--smoke)] px-4 py-3 transition-colors"
+                    className="w-full bg-[var(--ash)] border border-white/8 focus:border-[var(--flame)] focus:outline-none text-white placeholder-[var(--steel)] px-4 py-3 transition-colors text-base"
                   />
                 </div>
                 <div>
@@ -160,12 +161,13 @@ export default function ContactSection() {
                     Phone Number
                   </label>
                   <input
+                    type="tel"
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
                     required
                     placeholder="e.g. 082 000 0000"
-                    className="w-full bg-[var(--ash)] border border-white/8 focus:border-[var(--flame)]/50 focus:outline-none text-sm text-white placeholder-[var(--smoke)] px-4 py-3 transition-colors"
+                    className="w-full bg-[var(--ash)] border border-white/8 focus:border-[var(--flame)] focus:outline-none text-white placeholder-[var(--steel)] px-4 py-3 transition-colors text-base"
                   />
                 </div>
                 <div>
@@ -179,7 +181,7 @@ export default function ContactSection() {
                     required
                     rows={4}
                     placeholder="e.g. I need a 9kg gas cylinder delivered to Gordon's Bay..."
-                    className="w-full bg-[var(--ash)] border border-white/8 focus:border-[var(--flame)]/50 focus:outline-none text-sm text-white placeholder-[var(--smoke)] px-4 py-3 transition-colors resize-none"
+                    className="w-full bg-[var(--ash)] border border-white/8 focus:border-[var(--flame)] focus:outline-none text-white placeholder-[var(--steel)] px-4 py-3 transition-colors resize-none text-base"
                   />
                 </div>
                 <button
