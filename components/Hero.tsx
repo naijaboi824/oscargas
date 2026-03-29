@@ -26,8 +26,8 @@ export default function Hero() {
         backgroundAttachment: "fixed",
       }}
     >
-      {/* Modern dark overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-[var(--charcoal)]/80 pointer-events-none" />
+      {/* Modern dark overlay gradient - stronger for text visibility */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/85 to-black/88 pointer-events-none" />
 
       {/* Accent glow effects */}
       <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-[var(--flame)]/8 blur-[130px] pointer-events-none" />
@@ -42,6 +42,7 @@ export default function Hero() {
             opacity: 0,
             transform: "translateY(24px)",
             transition: "all 0.65s ease",
+            textShadow: "0 4px 20px rgba(0, 0, 0, 0.8)",
           }}
         >
           Same Day
@@ -53,7 +54,7 @@ export default function Hero() {
 
         <p
           className="hero-item text-[var(--mist)] text-lg md:text-xl max-w-lg mx-auto mb-10 leading-relaxed font-light"
-          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.65s ease" }}
+          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.65s ease", textShadow: "0 2px 10px rgba(0, 0, 0, 0.7)" }}
         >
           Your one-stop shop for all things LP gas in Cape Town. Delivered to your doorstep — same day for orders before 12&nbsp;PM.
         </p>
@@ -61,7 +62,7 @@ export default function Hero() {
         {/* CTAs */}
         <div
           className="hero-item flex flex-col sm:flex-row gap-4 justify-center items-center mb-14"
-          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.65s ease" }}
+          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.65s ease", textShadow: "0 2px 8px rgba(0, 0, 0, 0.6)" }}
         >
           <Link
             href="#products"
@@ -86,7 +87,7 @@ export default function Hero() {
         {/* Trust strip */}
         <div
           className="hero-item flex flex-wrap justify-center gap-6 md:gap-10"
-          style={{ opacity: 0, transform: "translateY(18px)", transition: "all 0.65s ease" }}
+          style={{ opacity: 0, transform: "translateY(18px)", transition: "all 0.65s ease", textShadow: "0 2px 8px rgba(0, 0, 0, 0.6)" }}
         >
           {[
             { icon: "⚡", label: "Same-Day Delivery" },
@@ -103,7 +104,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll cue */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[var(--smoke)] animate-bounce">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[var(--smoke)] animate-bounce" style={{ textShadow: "0 1px 4px rgba(0, 0, 0, 0.5)" }}>
         <span className="display text-[10px] tracking-widest uppercase">Scroll</span>
         <svg width="10" height="14" viewBox="0 0 10 14" fill="none" stroke="currentColor" strokeWidth="1.5">
           <line x1="5" y1="0" x2="5" y2="10" />
