@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // WhatsApp Business Phone Number ID and Access Token
 // You'll need to set these as environment variables
-const WHATSAPP_PHONE_ID = process.env.WHATSAPP_PHONE_ID || "27813870497";
+const WHATSAPP_PHONE_ID = process.env.WHATSAPP_PHONE_ID || "27787437120";
 const WHATSAPP_BUSINESS_ACCOUNT_ID = process.env.WHATSAPP_BUSINESS_ACCOUNT_ID;
 const WHATSAPP_ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN;
 
@@ -78,7 +78,7 @@ Delivery: R ${deliveryFee.toFixed(2)}
             },
             body: JSON.stringify({
               messaging_product: "whatsapp",
-              to: "27813870497",
+              to: "27787437120",
               type: "text",
               text: { body: orderSummary },
             }),
