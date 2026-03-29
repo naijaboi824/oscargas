@@ -57,6 +57,7 @@ textarea {
   -webkit-autofill: none;
   -webkit-autofill-text-fill: white !important;
   color: white !important;
+  font-size: 16px !important;
 }
 
 input[type="text"]:-webkit-autofill,
@@ -64,7 +65,7 @@ input[type="email"]:-webkit-autofill,
 input[type="tel"]:-webkit-autofill,
 input[type="number"]:-webkit-autofill,
 textarea:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px rgba(31, 31, 31, 0.8) inset !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(31, 31, 31, 1) inset !important;
   -webkit-text-fill-color: white !important;
   color: white !important;
 }
@@ -83,6 +84,14 @@ input[type="number"],
 textarea {
   caret-color: var(--flame);
   color: white !important;
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure labels don't cover input text */
+label {
+  position: relative;
+  z-index: 1;
 }
 
 /* Subtle grid overlay */

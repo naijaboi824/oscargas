@@ -180,7 +180,7 @@ export default function CheckoutPage() {
             <div className="lg:col-span-2">
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Personal Information */}
-                <div className="border border-white/10 rounded-lg p-6 bg-[var(--ash)]">
+                <div className="border border-white/10 rounded-lg p-6 bg-[var(--charcoal)]">
                   <h2 className="display text-xl font-bold mb-6 text-[var(--flame)]">Personal Information</h2>
                   <div className="space-y-4">
                     <div>
@@ -189,7 +189,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 bg-[var(--ash)] border border-white/20 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--smoke)] focus:outline-none transition-all text-base"
                         placeholder="Enter your full name"
                         required
                       />
@@ -202,7 +202,7 @@ export default function CheckoutPage() {
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)] border border-white/20 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--smoke)] focus:outline-none transition-all text-base"
                           placeholder="your@email.com"
                           required
                         />
@@ -213,7 +213,7 @@ export default function CheckoutPage() {
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)] border border-white/20 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--smoke)] focus:outline-none transition-all text-base"
                           placeholder="+27 81 234 5678"
                           required
                         />
@@ -223,7 +223,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Delivery Information */}
-                <div className="border border-white/10 rounded-lg p-6 bg-[var(--ash)]">
+                <div className="border border-white/10 rounded-lg p-6 bg-[var(--charcoal)]">
                   <h2 className="display text-xl font-bold mb-6 text-[var(--flame)]">Delivery Address</h2>
                   <div className="space-y-4">
                     <div>
@@ -232,7 +232,7 @@ export default function CheckoutPage() {
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 bg-[var(--ash)] border border-white/20 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--smoke)] focus:outline-none transition-all text-base"
                         placeholder="123 Main Street, Apartment 4B"
                         required
                       />
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                           type="text"
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)] border border-white/20 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--smoke)] focus:outline-none transition-all text-base"
                           placeholder="Cape Town"
                           required
                         />
@@ -256,7 +256,7 @@ export default function CheckoutPage() {
                           type="text"
                           value={zipCode}
                           onChange={(e) => setZipCode(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)] border border-white/20 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--smoke)] focus:outline-none transition-all text-base"
                           placeholder="8000"
                           required
                         />
