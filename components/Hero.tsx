@@ -53,8 +53,8 @@ export default function Hero() {
         </h1>
 
         <p
-          className="hero-item text-[var(--mist)] text-lg md:text-xl max-w-lg mx-auto mb-10 leading-relaxed font-light"
-          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.65s ease", textShadow: "0 2px 10px rgba(0, 0, 0, 0.7)" }}
+          className="hero-item text-white text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
+          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.65s ease", textShadow: "0 3px 15px rgba(0, 0, 0, 0.8)" }}
         >
           Your one-stop shop for all things LP gas in Cape Town. Delivered to your doorstep — same day for orders before 12&nbsp;PM.
         </p>
