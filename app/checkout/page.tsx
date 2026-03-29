@@ -163,10 +163,10 @@ export default function CheckoutPage() {
   return (
     <>
       <Navbar />
-      <div className="pt-32 pb-24 px-6 bg-[var(--charcoal)]">
+      <div className="pt-40 pb-24 px-6 bg-[var(--charcoal)]">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="mb-12">
+          <div className="mb-16">
             <p className="display text-[var(--flame)] text-xs font-semibold tracking-[0.3em] uppercase mb-3">
               Complete Your Order
             </p>
@@ -177,7 +177,7 @@ export default function CheckoutPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Form Section */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 mt-4">
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Personal Information */}
                 <div className="border border-white/10 rounded-lg p-6 bg-[var(--charcoal)]">
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full display py-3 bg-[var(--flame)] text-white font-semibold tracking-widest uppercase hover:bg-[var(--flame-dark)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 rounded"
+                  className="w-full display py-3 mt-12 bg-[var(--flame)] text-white font-semibold tracking-widest uppercase hover:bg-[var(--flame-dark)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 rounded"
                 >
                   {isSubmitting ? "Processing..." : "Complete Order"}
                 </button>
