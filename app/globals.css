@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --flame: #E8420A;
+  --flame-light: #FF6B35;
+  --flame-dark: #BF3208;
+  --black: #0D0D0D;
+  --charcoal: #161616;
+  --ash: #1F1F1F;
+  --smoke: #2C2C2C;
+  --steel: #6B6B6B;
+  --mist: #A0A0A0;
+  --white: #F5F3F0;
+  --font-display: "Oswald", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: var(--font-body); }
+
+/* Utilities */
+.flame-text { color: var(--flame); }
+.flame-glow { text-shadow: 0 0 40px rgba(232,66,10,0.55), 0 0 80px rgba(232,66,10,0.15); }
+.display { font-family: var(--font-display); }
+
+/* Delay helpers */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.opacity-0-init { opacity: 0; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--charcoal); }
+::-webkit-scrollbar-thumb { background: var(--flame); border-radius: 4px; }
+
+/* Hero radial backdrop */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -5%, rgba(232,66,10,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 45% at 85% 25%, rgba(255,107,53,0.07) 0%, transparent 55%),
+    var(--black);
+}
+
+/* Subtle grid overlay */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Card hover line sweep */
+.card-sweep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,66,10,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card-sweep:hover::before { opacity: 1; }
+
+/* WhatsApp float button */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 1.75rem;
+  z-index: 100;
+  background: #25D366;
+  color: white;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 32px rgba(37,211,102,0.6);
+}

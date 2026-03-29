@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm run build",
+  "startCommand": "npm run start",
+  "buildPacks": [],
+  "variables": {
+    "NODE_ENV": "production",
+    "NODE_OPTIONS": "--max-old-space-size=512"
+  }
+}
