@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// WhatsApp Business Phone Number ID and Access Token
+// You'll need to set these as environment variables
+const WHATSAPP_PHONE_ID = process.env.WHATSAPP_PHONE_ID || "27813870497";
+const WHATSAPP_BUSINESS_ACCOUNT_ID = process.env.WHATSAPP_BUSINESS_ACCOUNT_ID;
+const WHATSAPP_ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN;
+
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
@@ -22,55 +28,77 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // Format order message for WhatsApp
-    const orderMessage = `
-*OSCAR GAS ORDER*
+    // Format order summary for WhatsApp
+    const orderSummary = `📦 *NEW ORDER - OSCAR GAS*
 
-*Customer Details:*
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
+👤 *Customer*
+${name}
+📞 ${phone}
+✉️ ${email}
 
-*Delivery Address:*
+📍 *Delivery Address*
 ${address}
-${city}, ${zipCode}
+${city} ${zipCode}
 
-*Order Items:*
-${cartItems.map((item: any) => `• ${item.size} (${item.label}) x${item.qty} = R ${item.subtotal.toLocaleString("en-ZA")}`).join("\n")}
+📋 *Order Items*
+${cartItems.map((item: any) => `${item.size.padEnd(5)} x${item.qty.toString().padEnd(2)} = R ${item.subtotal.toLocaleString("en-ZA").padEnd(8)}`).join("\n")}
 
-*Order Summary:*
+💰 *Summary*
 Subtotal: R ${subtotal.toLocaleString("en-ZA")}
-Delivery Fee: R ${deliveryFee.toFixed(2)}
-*Total: R ${grandTotal.toFixed(2)}*
+Delivery: R ${deliveryFee.toFixed(2)}
+━━━━━━━━━━━━━━━
+*TOTAL: R ${grandTotal.toFixed(2)}*
 
-Order placed on: ${new Date().toLocaleString()}
-    `.trim();
+🕐 ${new Date().toLocaleString()}`;
 
-    // You can log the order here, save to database, or send emails
-    console.log("New Order Received:", {
+    // Log order to console/backend
+    console.log("📦 New Order Received:", {
+      orderId: `ORD-${Date.now()}`,
       name,
       email,
       phone,
       address,
       city,
       zipCode,
-      cartItems,
-      subtotal,
-      deliveryFee,
+      itemCount: cartItems.length,
       grandTotal,
       timestamp: new Date().toISOString(),
     });
 
-    // Optional: Send email notification
-    // await sendEmailNotification(email, name, orderMessage);
+    // Send to WhatsApp (if credentials are available)
+    if (WHATSAPP_ACCESS_TOKEN && WHATSAPP_BUSINESS_ACCOUNT_ID) {
+      try {
+        const whatsappResponse = await fetch(
+          `https://graph.instagram.com/v18.0/${WHATSAPP_PHONE_ID}/messages`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              messaging_product: "whatsapp",
+              to: "27813870497",
+              type: "text",
+              text: { body: orderSummary },
+            }),
+          }
+        );
+
+        if (!whatsappResponse.ok) {
+          console.error("WhatsApp API error:", await whatsappResponse.text());
+        }
+      } catch (whatsappError) {
+        console.error("Failed to send WhatsApp message:", whatsappError);
+      }
+    }
 
     // Return success response
     return NextResponse.json(
       {
         success: true,
-        message: "Order received! You will be contacted shortly via WhatsApp.",
+        message: "Order received successfully!",
         orderId: `ORD-${Date.now()}`,
-        whatsappUrl: `https://wa.me/27813870497?text=${encodeURIComponent(orderMessage)}`,
       },
       { status: 200 }
     );

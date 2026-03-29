@@ -97,67 +97,45 @@ export default function CheckoutPage() {
     setIsSubmitting(true);
     setSubmitMessage("");
 
-    // Format order details for WhatsApp
-    const orderDetails = `
-*OSCAR GAS ORDER*
-
-*Customer Details:*
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-
-*Delivery Address:*
-${address}
-${city}, ${zipCode}
-
-*Order Items:*
-${cartItems.map((item: any) => `• ${item.size} (${item.label}) x${item.qty} = R ${item.subtotal.toLocaleString("en-ZA")}`).join("\n")}
-
-*Order Summary:*
-Subtotal: R ${cartTotal.toLocaleString("en-ZA")}
-Delivery Fee: R ${deliveryFee.toFixed(2)}
-*Total: R ${grandTotal.toFixed(2)}*
-
-Order placed on: ${new Date().toLocaleString()}
-    `.trim();
-
-    // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/27813870497?text=${encodeURIComponent(orderDetails)}`;
-
-    // Open WhatsApp immediately (don't wait for API)
     try {
-      window.open(whatsappUrl, "_blank");
+      // Send order to backend (which will handle WhatsApp)
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          address,
+          city,
+          zipCode,
+          cartItems,
+          subtotal: cartTotal,
+          deliveryFee,
+          grandTotal,
+        }),
+      });
+
+      if (response.ok) {
+        // Clear cart
+        localStorage.removeItem(STORAGE_KEY);
+        
+        // Show success message
+        setSubmitMessage("✓ Order Placed Successfully!");
+        
+        // Redirect to shop after delay
+        setTimeout(() => {
+          router.push("/shop");
+        }, 3000);
+      } else {
+        setSubmitMessage("⚠️ Error placing order. Please try again.");
+        setIsSubmitting(false);
+      }
     } catch (error) {
-      console.error("Failed to open WhatsApp:", error);
-    }
-
-    // Send order to backend in background (non-blocking)
-    fetch("/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        address,
-        city,
-        zipCode,
-        cartItems,
-        subtotal: cartTotal,
-        deliveryFee,
-        grandTotal,
-      }),
-    }).catch((error) => console.error("Order logging error:", error));
-
-    // Show success message
-    setSubmitMessage("✓ Order sent to WhatsApp! Redirecting...");
-
-    // Clear cart and redirect after delay
-    setTimeout(() => {
-      localStorage.removeItem(STORAGE_KEY);
+      console.error("Order error:", error);
+      setSubmitMessage("⚠️ Error placing order. Please try again.");
       setIsSubmitting(false);
-      router.push("/shop");
-    }, 2500);
+    }
   };
 
   // Redirect if cart is empty
@@ -290,10 +268,10 @@ Order placed on: ${new Date().toLocaleString()}
                 {/* Submit Message */}
                 {submitMessage && (
                   <div
-                    className={`p-4 rounded text-center font-semibold ${
+                    className={`p-4 rounded text-center font-semibold text-lg ${
                       submitMessage.includes("✓")
-                        ? "bg-green-500/20 text-green-400"
-                        : "bg-red-500/20 text-red-400"
+                        ? "bg-green-500/20 border border-green-500/50 text-green-300"
+                        : "bg-red-500/20 border border-red-500/50 text-red-300"
                     }`}
                   >
                     {submitMessage}
