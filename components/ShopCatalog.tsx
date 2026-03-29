@@ -177,6 +177,12 @@ export default function ShopCatalog() {
                 <p className="display text-sm uppercase tracking-wider">Total</p>
                 <p className="display text-xl text-[var(--flame)]">R {cartTotal.toLocaleString("en-ZA")}</p>
               </div>
+              <a
+                href="/checkout"
+                className="block w-full mt-4 text-center py-2.5 bg-[var(--flame)] text-white display font-semibold tracking-widest uppercase hover:bg-[var(--flame-dark)] transition-colors"
+              >
+                Proceed to Checkout
+              </a>
             </div>
           )}
         </section>
