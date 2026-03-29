@@ -56,6 +56,7 @@ input[type="number"],
 textarea {
   -webkit-autofill: none;
   -webkit-autofill-text-fill: white !important;
+  color: white !important;
 }
 
 input[type="text"]:-webkit-autofill,
@@ -63,14 +64,16 @@ input[type="email"]:-webkit-autofill,
 input[type="tel"]:-webkit-autofill,
 input[type="number"]:-webkit-autofill,
 textarea:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5) inset !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(31, 31, 31, 0.8) inset !important;
   -webkit-text-fill-color: white !important;
+  color: white !important;
 }
 
 /* Caret/cursor color for inputs */
 input::placeholder,
 textarea::placeholder {
-  color: var(--steel);
+  color: var(--steel) !important;
+  opacity: 1 !important;
 }
 
 input[type="text"],
@@ -79,6 +82,7 @@ input[type="tel"],
 input[type="number"],
 textarea {
   caret-color: var(--flame);
+  color: white !important;
 }
 
 /* Subtle grid overlay */

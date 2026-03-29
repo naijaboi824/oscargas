@@ -82,15 +82,23 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !phone || !address || !city || !zipCode || cartItems.length === 0) {
-      setSubmitMessage("Please fill in all fields and ensure cart has items");
+    if (!name.trim() || !email.trim() || !phone.trim() || !address.trim() || !city.trim() || !zipCode.trim()) {
+      setSubmitMessage("Please fill in all fields");
+      setTimeout(() => setSubmitMessage(""), 4000);
+      return;
+    }
+
+    if (cartItems.length === 0) {
+      setSubmitMessage("Your cart is empty. Please add items to your cart");
+      setTimeout(() => setSubmitMessage(""), 4000);
       return;
     }
 
     setIsSubmitting(true);
+    setSubmitMessage("");
 
     try {
-      // Format order details
+      // Format order details for WhatsApp
       const orderDetails = `
 *OSCAR GAS ORDER*
 
@@ -104,7 +112,7 @@ ${address}
 ${city}, ${zipCode}
 
 *Order Items:*
-${cartItems.map((item) => `• ${item.size} (${item.label}) x${item.qty} = R ${item.subtotal.toLocaleString("en-ZA")}`).join("\n")}
+${cartItems.map((item: any) => `• ${item.size} (${item.label}) x${item.qty} = R ${item.subtotal.toLocaleString("en-ZA")}`).join("\n")}
 
 *Order Summary:*
 Subtotal: R ${cartTotal.toLocaleString("en-ZA")}
@@ -114,10 +122,7 @@ Delivery Fee: R ${deliveryFee.toFixed(2)}
 Order placed on: ${new Date().toLocaleString()}
       `.trim();
 
-      // Option 1: Send via WhatsApp
-      const whatsappUrl = `https://wa.me/27813870497?text=${encodeURIComponent(orderDetails)}`;
-
-      // Option 2: Also send email
+      // Send to backend for logging/email
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -135,21 +140,51 @@ Order placed on: ${new Date().toLocaleString()}
         }),
       });
 
-      if (response.ok) {
-        setSubmitMessage("✓ Order submitted! Redirecting to WhatsApp...");
-        // Clear cart
+      // Open WhatsApp regardless of API response
+      const whatsappUrl = `https://wa.me/27813870497?text=${encodeURIComponent(orderDetails)}`;
+      window.open(whatsappUrl, "_blank");
+
+      // Show success message
+      setSubmitMessage("✓ Order submitted! Opening WhatsApp...");
+      
+      // Clear cart and redirect
+      setTimeout(() => {
         localStorage.removeItem(STORAGE_KEY);
-        // Redirect to WhatsApp after 1 second
-        setTimeout(() => {
-          window.open(whatsappUrl, "_blank");
-          router.push("/shop");
-        }, 1000);
-      } else {
-        setSubmitMessage("Error submitting order. Please try again.");
-      }
+        router.push("/shop");
+      }, 2000);
     } catch (error) {
-      setSubmitMessage("Error submitting order. Please try again.");
-      console.error(error);
+      console.error("Order error:", error);
+      setSubmitMessage("Order submitted! Opening WhatsApp...");
+      
+      // Still open WhatsApp even if there's an error
+      const orderDetails = `
+*OSCAR GAS ORDER*
+
+*Customer Details:*
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+
+*Delivery Address:*
+${address}
+${city}, ${zipCode}
+
+*Order Items:*
+${cartItems.map((item: any) => `• ${item.size} (${item.label}) x${item.qty} = R ${item.subtotal.toLocaleString("en-ZA")}`).join("\n")}
+
+*Order Summary:*
+Subtotal: R ${cartTotal.toLocaleString("en-ZA")}
+Delivery Fee: R ${deliveryFee.toFixed(2)}
+*Total: R ${grandTotal.toFixed(2)}*
+      `.trim();
+      
+      const whatsappUrl = `https://wa.me/27813870497?text=${encodeURIComponent(orderDetails)}`;
+      window.open(whatsappUrl, "_blank");
+      
+      setTimeout(() => {
+        localStorage.removeItem(STORAGE_KEY);
+        router.push("/shop");
+      }, 2000);
     } finally {
       setIsSubmitting(false);
     }
@@ -206,7 +241,7 @@ Order placed on: ${new Date().toLocaleString()}
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
                         placeholder="Enter your full name"
                         required
                       />
@@ -219,7 +254,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
                           placeholder="your@email.com"
                           required
                         />
@@ -230,7 +265,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
                           placeholder="+27 81 234 5678"
                           required
                         />
@@ -249,7 +284,7 @@ Order placed on: ${new Date().toLocaleString()}
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
+                        className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
                         placeholder="123 Main Street, Apartment 4B"
                         required
                       />
@@ -262,7 +297,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="text"
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
                           placeholder="Cape Town"
                           required
                         />
@@ -273,7 +308,7 @@ Order placed on: ${new Date().toLocaleString()}
                           type="text"
                           value={zipCode}
                           onChange={(e) => setZipCode(e.target.value)}
-                          className="w-full px-4 py-3 bg-[var(--black)]/50 border border-white/10 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:outline-none transition-colors text-base"
+                          className="w-full px-4 py-3 bg-[var(--ash)]/80 border border-white/15 rounded text-white placeholder-[var(--steel)] focus:border-[var(--flame)] focus:bg-[var(--ash)] focus:outline-none transition-colors text-base"
                           placeholder="8000"
                           required
                         />
@@ -299,7 +334,7 @@ Order placed on: ${new Date().toLocaleString()}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full display py-3 bg-[var(--flame)] text-white font-semibold tracking-widest uppercase hover:bg-[var(--flame-dark)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="w-full display py-3 bg-[var(--flame)] text-white font-semibold tracking-widest uppercase hover:bg-[var(--flame-dark)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 rounded"
                 >
                   {isSubmitting ? "Processing..." : "Complete Order"}
                 </button>
