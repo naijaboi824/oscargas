@@ -18,13 +18,20 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="hero-bg grid-overlay relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 pb-16 overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 pb-16 overflow-hidden"
+      style={{
+        backgroundImage: "url('/gas-cooktop.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
     >
-      {/* Glow orb */}
-      <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-[var(--flame)]/12 blur-[130px] pointer-events-none" />
+      {/* Modern dark overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-[var(--charcoal)]/80 pointer-events-none" />
 
-      {/* Diagonal accent line */}
-      <div className="absolute top-0 right-0 w-[1px] h-[60vh] bg-gradient-to-b from-[var(--flame)]/40 via-[var(--flame)]/10 to-transparent" />
+      {/* Accent glow effects */}
+      <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-[var(--flame)]/8 blur-[130px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[1px] h-[60vh] bg-gradient-to-b from-[var(--flame)]/30 via-[var(--flame)]/5 to-transparent" />
 
       <div className="relative z-10 max-w-4xl mx-auto">
         {/* Headline */}
