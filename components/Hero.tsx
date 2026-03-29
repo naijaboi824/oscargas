@@ -27,15 +27,6 @@ export default function Hero() {
       <div className="absolute top-0 right-0 w-[1px] h-[60vh] bg-gradient-to-b from-[var(--flame)]/40 via-[var(--flame)]/10 to-transparent" />
 
       <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Live badge */}
-        <div
-          className="hero-item inline-flex items-center gap-2.5 border border-[var(--flame)]/35 bg-[var(--flame)]/8 text-[var(--flame)] text-xs font-semibold tracking-[0.25em] uppercase px-4 py-2 mb-8"
-          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.6s ease" }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--flame)] animate-pulse" />
-          Gordon's Bay &amp; Cape Town — Open 24 / 7
-        </div>
-
         {/* Headline */}
         <h1
           className="hero-item display font-bold uppercase leading-[0.92] tracking-tight mb-6"
